@@ -93,8 +93,9 @@ Computation is a tool that is well-suited to quantitative analysis, and computer
 
 ### Descriptive Statistics 
 
-![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
+![alt text](https://github.com/lesley2958/stats-programmers/blob/master/mean.png?raw=true "Logo Title Text 1")
 
+![alt text](https://github.com/lesley2958/stats-programmers/blob/master/variance.png?raw=true "Logo Title Text 1")
 
 
 ###  Z-Values

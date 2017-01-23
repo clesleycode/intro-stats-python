@@ -52,13 +52,16 @@ Statistics is the discipline of using data samples to support claims about popul
 
 Data collection is the process of gathering and measuring information on targeted variables in an established systematic fashion, which allows you to answer relevant questions and evaluate outcomes.
 
+Many times, our data will come from simulation. In the classic example question, "Is a coin toss fair?", we'll do exactly that.
+
+
 #### 1.2.2 Descriptive Statistics 
 
 Descriptive statistics refers to the generation of statistics that summarize your data concisely and evaluate different ways to visualize data.
 
 #### 1.2.3 Exploratory Data Analysis
 
-During the process of exploratory data analysis, we look for patterns, differences, and other features that address the questions we are interested in.At the same time we will check for inconsistencies and identify limitations.
+During the process of exploratory data analysis, we look for patterns, differences, and other features that address the questions we are interested in. At the same time we will check for inconsistencies and identify limitations.
 
 #### 1.2.4 Hypothesis Testing 
 
@@ -210,19 +213,30 @@ Here, x<sub>m</sub> and &infty; determine the location and shape of the distribu
 
 The normal distribution, also called Gaussian, is the most commonly used because it describes so many phenomena, at least approximately.
 
-
 ### 4.4 Poisson Distribution
 
 The Poisson distribution can be applied to systems with a large number of possible events, each of which is rare.
 
 A discrete random variable X  is said to have a Poisson distribution with parameter &lambda; > 0, if, for k = 0, 1, 2,..., the probability mass function of X  is given by:
 
-![alt text](https://github.com/lesley2958/stats-programmers/blob/master/pareto%20cdf.png?raw=true "Logo Title Text 1")
+![alt text](https://github.com/lesley2958/stats-programmers/blob/master/poisson%20pmf%20.png?raw=true "Logo Title Text 1")
+
+The positive real number &lambda; is equal to the expected value of X and its variance, so &lambda; = E(X) = Var(X).
+
+To calculate poisson distribution we need two variables:
+
+1. Poisson random variable (x): Poisson Random Variable is equal to the overall REMAINING LIMIT that needs to be reached
+
+2. Average rate of success(rate_of_success): 
+ 
 
 #### 4.4.1 Code
 
-Scipy is a python library that is used for Analytics, Scientific Computing, and Technical Computing. Using the `stats.poisson` module we can easily compute poisson distribution of a specific problem:
+Scipy is a python library that is used for Analytics, Scientific Computing, and Technical Computing. Using the `stats.poisson` module we can easily compute poisson distribution of a specific problem.
 
+Using scipy, we can calculate the poisson distribution as follows: 
+
+proabability_reached = float(1-scipy.stats.distributions.poisson.cdf(poisson random variable-1, rate_of_success)) * 100
 
 ## 5.0 Probability
 
@@ -250,9 +264,34 @@ Skewness is a statistic that measures the asymmetry of a distribution. Given a s
 
 ## 7.0 Hypothesis Testing
 
+A statistical hypothesis is a hypothesis that is testable on the basis of observing a process that is modeled via a set of random variables. The underlying logic is similar to a proof by contradiction. To prove a mathematical statement, A, you assume temporarily that A is false. If that assumption leads to a contradiction, you conclude that A must actually be true.
+
+Similarly, to test a hypothesis like, “This effect is real,” we assume, temporarily,
+that is is not. That’s the <b>null hypothesis</b>. Based on that assumption,
+we compute the probability of the apparent effect. That’s the <b>p-value</b>. If the
+p-value is low enough, we conclude that the null hypothesis is unlikely to
+be true.
+
+
+### 7.1 Testing a difference in means
+
+One of the easiest hypotheses to test is an apparent difference in mean between
+two groups.
+
+### 7.2 Choosing a threshold
+
+In hypothesis testing we have to worry about two kinds of errors.
+
+1. False Positives are when we accept a hypothesis that is actually false; that is, we consider an effect significant when it was actually due to chance.
+
+2. False Negatives are when we reject a hypothesis that is actually true; that is, we attribute an effect to chance when it was actually real.
+
 
 ## 8.0 Estimation 
 
+Up until now we have used the symbol &mu; for both the sample mean and the mean parameter, but now we will distinguish them, using x&#772;‌ for the sample mean. Previously, we've just assumed that x&#772;‌ = &mu;, but now we will go through the actual process of estimating &mu;. This process is called estimation, and the statistic we used (the sample mean) is called an estimator.
+
+Using the sample mean to estimate &mu; is fairly intuitive, but suppose we introduce outliers.
 
 ## 9.0 Correlation
 

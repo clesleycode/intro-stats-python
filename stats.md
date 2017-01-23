@@ -9,28 +9,17 @@ Brought to you by [Lesley Cordero](http://www.columbia.edu/~lc2958).
 	+ [0.1 R and R Studio](#01-r-and-r-studio)
 	+ [0.2 Packages](#02-packages)
 - [1.0 Background](#10-background)
-	+ [1.1 Machine Learning](#11-Machine Learning)
-	+ [1.2 Data](#12-data)
-	+ [1.3 Overfitting vs Underfitting](#13-overfitting-vs-underfitting)
-	+ [1.4 Glossary](#14-glossary)
-		* [1.4.1 Factors](#141-factors)
-		* [1.4.2 Corpus](#142-corpus)
-		* [1.4.3 Bias](#143-bias)
-		* [1.4.4 Variance](#144-variance)
-- [2.0 Data Preparation](#30-data-preparation)
-	+ [2.1 dplyr](#31-dplyr)
-	+ [2.2 Geopandas](#32-geopandas)
-- [3.0 Exploratory Analysis](#30-exploratory-analysis)
-- [4.0 Data Visualization](#50-data-visualization)
-- [5.0 Machine Learning & Prediction](#50-machine-learning--prediction)
-	+ [5.1 Random Forests](#51-random-forests)
-	+ [5.2 Natural Language Processing](#52-natural-language-processing)
-		* [5.2.1 ANLP](#521-anlp)
-	+ [5.3 K Means Clustering](#53-k-means-clustering)
-- [6.0 Final Exercise]($60-final-exercise)
-- [7.0 Final Words](#60-final-words)
-	+ [7.1 Resources](#61-resources)
-	+ [7.2 More!](#72-more)
+	+ [1.1 Probability](#11-probability)
+	+ [1.2 Statistics](#12-statistics)
+		* [1.2.1 Data Collection](#121-data-collection)
+		* [1.2.2 Descriptive Statistics](#122-descriptive-statistics)
+		* [1.2.3 Exploratory Data Analysis](#123-exploratory-data-analysis)
+		* [1.2.4 Hypothesis Testing](#124-hypothesis-testing)
+		* [1.2.5 Estimation](#125-estimation)
+	+ [1.3 Computation](#13-computation)
+- [10.0 Final Words](#100-final-words)
+	+ [10.1 Resources](#101-resources)
+	+ [10.2 Mini Courses](#72-mini-courses)
 
 ## 0.0 Setup
 
@@ -43,7 +32,7 @@ Download [Python](https://www.python.org/downloads/) and [Pip](https://pip.pypa.
 ### 0.2 Libraries
 
 ```
-
+pip3 install
 ```
 
 ## 1.0 Background
@@ -53,24 +42,25 @@ The purpose of this tutorial is using your ability to code to help you understan
 
 ### 1.1 Probability
 
-Probability is the study of random events.
+Probability is the study of random events - the study of how likely it is that some event will happen.
 
 ### 1.2 Statistics
 
 Statistics is the discipline of using data samples to support claims about populations. Most statistical analysis is based on probability, which is why these pieces are usually presented together.
 
-#### 1.2.1 Data collection 
+#### 1.2.1 Data Collection 
 
+Data collection is the process of gathering and measuring information on targeted variables in an established systematic fashion, which allows you to answer relevant questions and evaluate outcomes.
 
-#### 1.2.2 Descriptive statistics 
+#### 1.2.2 Descriptive Statistics 
 
 Descriptive statistics refers to the generation of statistics that summarize your data concisely and evaluate different ways to visualize data.
 
-#### 1.2.3 Exploratory data analysis
+#### 1.2.3 Exploratory Data Analysis
 
 During the process of exploratory data analysis, we look for patterns, differences, and other features that address the questions we are interested in.At the same time we will check for inconsistencies and identify limitations.
 
-#### 1.2.4 Hypothesis testing 
+#### 1.2.4 Hypothesis Testing 
 
 Where we see apparent effects, like a difference between two groups, we will evaluate whether the effect is real, or whether it might have happened by chance.
 
@@ -160,8 +150,6 @@ The shape just refers to the shape the histogram data forms. Typically, we look 
 Outliers are values that are far from the central tendency. Outliers might be caused by errors in collecting or processing the data, or they might be correct but unusual measurements. It is always a good idea to check for outliers, and sometimes it is useful and appropriate to discard them.
 
 
-
-
 ## 3.0 Cumulative Distribution Functions
 
 ### 3.1 Percentiles
@@ -213,23 +201,60 @@ Here, &lambda; determines the shape of the distribution.
 
 The Pareto Distribution is often used to describe phenomena in the natural and social sciences including sizes of cities and towns, sand particles and meteorites, forest fires and earthquakes.
 
+![alt text](https://github.com/lesley2958/stats-programmers/blob/master/pareto%20cdf.png?raw=true "Logo Title Text 1")
+
+Here, x<sub>m</sub> and &infty; determine the location and shape of the distribution. Specifically x<sub>m</sub> is the minimum possible value.
+
+
+### 4.3 Normal Distribution
+
+The normal distribution, also called Gaussian, is the most commonly used because it describes so many phenomena, at least approximately.
+
+
+### 4.4 Poisson Distribution
+
+The Poisson distribution can be applied to systems with a large number of possible events, each of which is rare.
+
+A discrete random variable X  is said to have a Poisson distribution with parameter &lambda; > 0, if, for k = 0, 1, 2,..., the probability mass function of X  is given by:
 
 ![alt text](https://github.com/lesley2958/stats-programmers/blob/master/pareto%20cdf.png?raw=true "Logo Title Text 1")
 
+#### 4.4.1 Code
+
+Scipy is a python library that is used for Analytics, Scientific Computing, and Technical Computing. Using the `stats.poisson` module we can easily compute poisson distribution of a specific problem:
+
+
+## 5.0 Probability
+
+Probability is a real value between 0 and 1 that is intended to be a quantitative measure corresponding to the qualitative notion that some things are more likely than others.
+
+The “things” we assign probabilities to are <b>called events</b>. If E represents an event, then P(E) represents the probability that E will occur. A situation where E might or might not happen is called a trial.
+
+
+### 5.5 Bayes's Theorem
+
+Bayes’s theorem is a relationship between the conditional probabilities of two events. A conditional probability, often written P(A|B) is the probability that Event A will occur given that we know that Event B has occurred. It's represented as follows:
+
+![alt text](https://github.com/lesley2958/stats-programmers/blob/master/bayes.png?raw=true "Logo Title Text 1")
+
+
+## 6.0 Operations on Distributions
+
+### 6.1 Skewness
+
+Skewness is a statistic that measures the asymmetry of a distribution. Given a sequence of values, x<sub>i</sub>, the sample skewness is
+
+![alt text](https://github.com/lesley2958/stats-programmers/blob/master/skewness.png?raw=true "Logo Title Text 1")
 
 
 
+## 7.0 Hypothesis Testing
 
 
+## 8.0 Estimation 
 
 
-
-
-
-
-
-
-
+## 9.0 Correlation
 
 
 ###  Z-Values
@@ -248,15 +273,15 @@ Meaningwhile, P values are probabilities. Both these statistics terms are associ
 ### Significance Level
 
 
-## 5.0 Final Words
+## 10.0 Final Words
 
 
-### 5.1 Resources
+### 10.1 Resources
 
 []() <br>
 []()
 
-### 5.2 Mini Courses
+### 10.2 Mini Courses
 
 Learn about courses [here](www.byteacademy.co/all-courses/data-science-mini-courses/).
 

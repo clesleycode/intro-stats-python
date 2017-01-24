@@ -130,10 +130,11 @@ A summary statistic is the result of a computation that reduces a dataset to a s
 
 An apparent effect is statistically significant if it is unlikely to occur by chance.
 
-
 #### 1.4.6 Central Tendency
 
 The central tendency is a characteristic of a sample or population, or the most average value. 
+
+
 
 ## 2.0 Descriptive Statistics 
 
@@ -143,7 +144,12 @@ An “average” is one of many summary statistics you might choose to describe 
 
 ![alt text](https://github.com/lesley2958/stats-programmers/blob/master/mean.png?raw=true "Logo Title Text 1")
 
+In Python, the mean would look like this: 
 
+``` python
+def Mean(t):
+    return(float(sum(t)) / len(t))
+```
 ### 2.2 Variance
 
 In the same way that the mean is intended to describe the central tendency, variance is intended to describe the <b>spread</b>. 
@@ -152,6 +158,17 @@ In the same way that the mean is intended to describe the central tendency, vari
 
 The x<sub>i</sub> - &mu; is called the "deviation from the mean", making the variance the mean multipled by the squared deviation. This is why the square root of the variance, &sigma;, is called the <b>standard deviation</b>.
 
+Using the mean function we created above, we'll write up a function that calculates the variance: 
+
+``` python
+def Var(t, mu=None):
+    if mu is None:
+        mu = Mean(t)
+    # compute the squared deviations and returns their mean.
+    dev2 = [(x - mu)**2 for x in t]
+    var = Mean(dev2)
+    return(var)
+```
 
 ### 2.3 Distributions
 
@@ -186,7 +203,6 @@ for x, freq in hist.items():
 ```
 
 This normalized histogram is called a PMF, “probability mass function”, which is a function that maps values to probabilities.
-
 
 #### 2.3.2 Mode
 
@@ -233,32 +249,60 @@ def cdf(t, x):
 	return(prob)
 ```
 
+### 3.3 Interquartile Range
+
+Once you have computed a CDF, it's easy to compute other summary statistics.The median is just the 50th percentile. The 25th and 75th percentiles are often used to check whether a distribution is symmetric, and their difference, which is called the interquartile range, measures the spread.
+
+
 
 ## 4.0 Sampling Distributions
 
 The distributions we have used so far are called empirical distributions because they are based on empirical observations, which are necessarily finite samples. The alternative is a continuous distribution, which is characterized by a CDF that is a continuous function (as opposed to a step function).
 
-### 4.1 Exponential Distribution 
+### 4.1 Normal Distribution
+
+The normal distribution, also called Gaussian, is the most commonly used because it describes so many phenomena (at least approximately). The normal distribution has many properties that make it amenable for analysis, but the CDF is not one of them.
+
+Unlike the other distributions we will look at, there is no closed-form expression for the normal CDF. Instead, we write it in terms of the error function, erf(x). 
+
+![alt text](https://github.com/lesley2958/stats-programmers/blob/master/normal%20cdf.png?raw=true "Logo Title Text 1")
+
+Now, using the scipy module, we can create the CDF for a Normal Distribution:
+
+``` python
+from scipy.special import erf
+
+def StandardNormalCdf(x):
+    return (erf(x / root2) + 1) / 2)
+
+def NormalCdf(x, mu=0, sigma=1):
+    return(StandardNormalCdf(float(x - mu) / sigma))
+```
+Notice we imported `er` from `scipy.special`. This CDF, when plotted, looks like:
+
+![alt text](normal distr cdf plot"Logo Title Text 1")
+
+### 4.2 Exponential Distribution 
 
 Exponential distributions come up when we look at a series of events and measure the times between events, which are called interarrival times. If the events are equally likely to occur at any time, the distribution of interarrival times tends to look like an exponential distribution.
 
 ![alt text](https://github.com/lesley2958/stats-programmers/blob/master/exp%20cdf.png?raw=true"Logo Title Text 1")
 
-Here, &lambda; determines the shape of the distribution. 
+Here, &lambda; determines the shape of the distribution. The mean of an exponential distribution is 1/&lambda;, whereas the median is usually ln(2)/&lambda;. This results in a distribution that looks like:
+
+![alt text](expo cdf plot"Logo Title Text 1")
 
 
-### 4.2 Pareto Distribution 
+### 4.3 Pareto Distribution 
 
 The Pareto Distribution is often used to describe phenomena in the natural and social sciences including sizes of cities and towns, sand particles and meteorites, forest fires and earthquakes.
 
 ![alt text](https://github.com/lesley2958/stats-programmers/blob/master/pareto%20cdf.png?raw=true "Logo Title Text 1")
 
-Here, x<sub>m</sub> and &infty; determine the location and shape of the distribution. Specifically x<sub>m</sub> is the minimum possible value.
+Here, x<sub>m</sub> and &alpha; determine the location and shape of the distribution. Specifically x<sub>m</sub> is the minimum possible value. This ends up looking something like this: 
 
+![alt text](pareto cdf plot"Logo Title Text 1")
 
-### 4.3 Normal Distribution
-
-The normal distribution, also called Gaussian, is the most commonly used because it describes so many phenomena, at least approximately.
 
 ### 4.4 Poisson Distribution
 
@@ -457,13 +501,13 @@ Now, we'll look at relationships between variables. <b>Correlation</b> is a desc
 
 Covariance is a measure of the tendency of two variables to vary together. If we have two series, X and Y, their deviations from the mean are
 
-![alt text](https://github.com/lesley2958/stats-programmers/blob/master/mse.png?raw=true "Logo Title Text 1")
+![alt text](https://github.com/lesley2958/stats-programmers/blob/master/covariance.png?raw=true "Logo Title Text 1")
 
 where &mu;<sub>X</sub> is the mean of X and &mu;<sub>Y</sub> is the mean of Y. If X and Y vary together, their deviations tend to have the same sign. If we multiply them together, the product is positive when the deviations have the same sign and negative when they have the opposite sign. So adding up the products gives a measure of the tendency to vary together.
 
 Therefore, covariance is the mean of these two products:
 
-![alt text](https://github.com/lesley2958/stats-programmers/blob/master/mse.png?raw=true "Logo Title Text 1")
+![alt text](https://github.com/lesley2958/stats-programmers/blob/master/cov%20final.png?raw=true "Logo Title Text 1")
 
 Note that n is the length of the two series, so they have to be the same length.
 
@@ -496,13 +540,25 @@ def Cov(xs, ys, mux=None, muy=None):
 
 One solution to this problem is to divide the deviations by &sigma;, which yields standard scores, and compute the product of standard scores.
 
-![alt text](https://github.com/lesley2958/stats-programmers/blob/master/mse.png?raw=true "Logo Title Text 1")
+![alt text](https://github.com/lesley2958/stats-programmers/blob/master/pearson%20coeff.png?raw=true "Logo Title Text 1")
 
+Pearson’s correlation is always between -1 and +1. The magnitude indicates the strength of the correlation. If p = 1 the variables are perfectly correlated. The same is true if p = -1. It means that the variables are negatively correlated.
 
-###  Z-Values
+It's important to note that Pearson's correlation only measures <b>linear</b> relationships. 
 
-Z-value is a measure of standard deviation, i.e. how many standard deviation away from mean is the observed value. For example, the value of z-value = +1.8 can be interpreted as the observed value is +1.8 standard deviations away from the mean. 
+Using the mean, varainces, and covariance methods above, we can write a function that calculates the correlation. 
 
+``` python 
+import math
+def Corr(xs, ys):
+    xbar = Mean(xs)
+    varx = Var(xs)
+    ybar = Mean(ys)
+    vary = Var(ys)
+
+    corr = Cov(xs, ys, xbar, ybar) / math.sqrt(varx * vary)
+    return(corr)
+```
 
 ## 10.0 Mini Courses
 

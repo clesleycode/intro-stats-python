@@ -6,8 +6,8 @@ Brought to you by [Lesley Cordero](http://www.columbia.edu/~lc2958).
 ## Table of Contents
 
 - [0.0 Setup](#00-setup)
-	+ [0.1 R and R Studio](#01-r-and-r-studio)
-	+ [0.2 Packages](#02-packages)
+	+ [0.1 Python and Pip](#01-python-and-r-pip)
+	+ [0.2 Libraries](#02-libraries)
 - [1.0 Background](#10-background)
 	+ [1.1 Probability](#11-probability)
 	+ [1.2 Statistics](#12-statistics)
@@ -17,9 +17,42 @@ Brought to you by [Lesley Cordero](http://www.columbia.edu/~lc2958).
 		* [1.2.4 Hypothesis Testing](#124-hypothesis-testing)
 		* [1.2.5 Estimation](#125-estimation)
 	+ [1.3 Computation](#13-computation)
-- [10.0 Final Words](#100-final-words)
-	+ [10.1 Resources](#101-resources)
-	+ [10.2 Mini Courses](#72-mini-courses)
+	+ [1.4 Glossary](#14-glossary)
+		* [1.4.1 Frequency](#141-frequency)
+		* [1.4.2 Probability](#142-probability)
+		* [1.4.3 Oversampling](#143-oversampling)
+		* [1.4.4 Summary Statistic](#144-summary-statistic)
+		* [1.4.5 Statistically Significant](#145-statistically-signifcant)
+- [2.0 Descriptive Statistics](#20-descriptive-statistics)
+	+ [2.1 Mean](#21-mean)
+	+ [2.2 Variance](#22-variance)
+	+ [2.3 Distributions](#23-distributions)
+		* [2.3.1 Histograms](#231-histograms)
+		* [2.3.2 Mode](#232-model)
+		* [2.3.3 Shape](#233-shape)
+		* [2.3.4 Outliers](#234-outliers)
+- [3.0 Cumulative Distribution Functions](#30-cumulative-distribution-functions)
+	+ [3.1 Percentiles](#31-percentiles)
+	+ [3.2 CDFs](#32-cdfs)
+- [4.0 Sampling Distributions](#40-sampling-distributions)
+	+ [4.1 Exponential Distribution](#41-exponential-distributions)
+	+ [4.2 Pareto Distribution](#42-pareto-distribution)
+	+ [4.3 Normal Distribution](#43-normal-distribution)
+	+ [4.4 Poisson Distribution](#44-poisson-distribution)
+	+ [5.2 Binomial Distribution](#52-binomial-distribution)
+		* [5.5.1 What is a Sampling Distribution?](#551-what-is-a-sampling-distribution)
+- [5.0 Probability](#50-probability)
+	+ [5.1 Probability Rules](#51-probability-rules)
+	+ [5.5 Bayes's Theorem](#55-bayes-theorem)
+- [6.0 Operations on Distributions](#60-operations-on-distributions)
+	+ [6.1 Skewness](#61-skewness)
+		* [6.1.1 Pearson’s Median Skewness Coefficient](#611-pearsons-median-skewness-coefficient)
+- [7.0 Hypothesis Testing](#70-hypothesis-testing)
+	+ [9.2 Correlation](#92-correlation)
+- [8.0 Estimation](#80-estimation)
+- [9.0 Correlation](#90-correlation)
+	+ [9.1 Covariance](#covariance)
+- [10.0 Mini Courses](#100-mini-courses)
 
 ## 0.0 Setup
 
@@ -37,8 +70,7 @@ pip3 install scipy
 
 ## 1.0 Background
 
-The purpose of this tutorial is using your ability to code to help you understand probability and statistics.
-
+The purpose of this tutorial is to use your ability to code to help you understand probability and statistics.
 
 ### 1.1 Probability
 
@@ -86,8 +118,24 @@ Frequency is the number of times a value appears in a dataset
 
 Probability is the frequency expressed as a fraction of the sample size, n.
 
-## 2.0 Descriptive Statistics 
+#### 1.4.3 Oversampling
 
+Oversampling is the technique of increasing the representation of a subpopulation in order to avoid errors due to small sample sizes.
+
+#### 1.4.4 Summary Statistics
+
+A summary statistic is the result of a computation that reduces a dataset to a single number (or at least a smaller set of numbers) that captures some characteristic of the data.
+
+#### 1.4.5 Statistically Significant
+
+An apparent effect is statistically significant if it is unlikely to occur by chance.
+
+
+#### 1.4.6 Central Tendency
+
+The central tendency is a characteristic of a sample or population, or the most average value. 
+
+## 2.0 Descriptive Statistics 
 
 ### 2.1 Mean 
 
@@ -148,7 +196,7 @@ The most common value in a distribution is called the <b>mode</b>.
 
 The shape just refers to the shape the histogram data forms. Typically, we look for asymetry, or a lack there of.
 
-#### 2.3.5 Outliers
+#### 2.3.4 Outliers
 
 Outliers are values that are far from the central tendency. Outliers might be caused by errors in collecting or processing the data, or they might be correct but unusual measurements. It is always a good idea to check for outliers, and sometimes it is useful and appropriate to discard them.
 
@@ -184,6 +232,7 @@ def cdf(t, x):
 	prob = count / len(t)
 	return(prob)
 ```
+
 
 ## 4.0 Sampling Distributions
 
@@ -404,32 +453,58 @@ If there are no outliers, the sample mean minimizes the mean squared error (MSE)
 
 Now, we'll look at relationships between variables. <b>Correlation</b> is a description of some kind of relationship.
 
+### 9.1 Covariance
+
+Covariance is a measure of the tendency of two variables to vary together. If we have two series, X and Y, their deviations from the mean are
+
+![alt text](https://github.com/lesley2958/stats-programmers/blob/master/mse.png?raw=true "Logo Title Text 1")
+
+where &mu;<sub>X</sub> is the mean of X and &mu;<sub>Y</sub> is the mean of Y. If X and Y vary together, their deviations tend to have the same sign. If we multiply them together, the product is positive when the deviations have the same sign and negative when they have the opposite sign. So adding up the products gives a measure of the tendency to vary together.
+
+Therefore, covariance is the mean of these two products:
+
+![alt text](https://github.com/lesley2958/stats-programmers/blob/master/mse.png?raw=true "Logo Title Text 1")
+
+Note that n is the length of the two series, so they have to be the same length.
+
+``` python
+def Cov(xs, ys, mux=None, muy=None):
+    """Computes Cov(X, Y).
+
+    Args:
+        xs: sequence of values
+        ys: sequence of values
+        mux: optional float mean of xs
+        muy: optional float mean of ys
+
+    Returns:
+        Cov(X, Y)
+    """
+    if mux is None:
+        mux = thinkstats.Mean(xs)
+    if muy is None:
+        muy = thinkstats.Mean(ys)
+
+    total = 0.0
+    for x, y in zip(xs, ys):
+        total += (x-mux) * (y-muy)
+
+    return(total / len(xs))
+```
+
+### 9.2 Correlation
+
+One solution to this problem is to divide the deviations by &sigma;, which yields standard scores, and compute the product of standard scores.
+
+![alt text](https://github.com/lesley2958/stats-programmers/blob/master/mse.png?raw=true "Logo Title Text 1")
+
 
 ###  Z-Values
 
 Z-value is a measure of standard deviation, i.e. how many standard deviation away from mean is the observed value. For example, the value of z-value = +1.8 can be interpreted as the observed value is +1.8 standard deviations away from the mean. 
 
 
-### P-Values
-
-Meaningwhile, P values are probabilities. Both these statistics terms are associated with the standard normal distribution. 
-
-
-### Central Limit Theorem 
-
-
-### Significance Level
-
-
-## 10.0 Final Words
-
-
-### 10.1 Resources
-
-[]() <br>
-[]()
-
-### 10.2 Mini Courses
+## 10.0 Mini Courses
 
 Learn about courses [here](www.byteacademy.co/all-courses/data-science-mini-courses/).
 

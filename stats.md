@@ -173,9 +173,7 @@ def percentileRank(scores, your_score):
 
 The Cumulative Distribution Function (CDF) is the function that maps values to their percentile rank in a distribution.
 
-The following function should look familiar - it's almost the same as percentileRank,
-except that the result is in a probability in the range 0–1 rather than a percentile
-rank in the range 0–100.
+The following function should look familiar - it's almost the same as percentileRank, except that the result is in a probability in the range 0–1 rather than a percentile rank in the range 0–100.
 
 ``` python
 def cdf(t, x):
@@ -255,7 +253,15 @@ P(A or B) = P(A) + P(B)
 
 If I roll 100 dice, the chance of getting all sixes is (1/6)<sup>100</sup>. And the chance of getting no sixes is (5/6)<sup>100</sup>. Those cases are easy, but more generally, we might like to know the chance of getting k sixes, for all values of k from 0 to 100. The answer is the binomial distribution, which has this PMF:
 
-![alt text](https://github.com/lesley2958/stats-programmers/blob/master/bayes.png?raw=true "Logo Title Text 1")
+![alt text](https://github.com/lesley2958/stats-programmers/blob/master/binomial%20pmf.png?raw=true "Logo Title Text 1")
+
+where n is the number of trials, p is the probability of success, and k is the
+number of successes. The binomial coefficient is pronounced “n choose k”, and it can be computed
+recursively like this:
+
+![alt text](https://github.com/lesley2958/stats-programmers/blob/master/binomial%20coeff.png?raw=true "Logo Title Text 1")
+
+In Python, this looks like: 
 
 ``` python
 def Binom(n, k, d={}):
@@ -342,7 +348,15 @@ Skewness is a statistic that measures the asymmetry of a distribution. Given a s
 
 ![alt text](https://github.com/lesley2958/stats-programmers/blob/master/skewness.png?raw=true "Logo Title Text 1")
 
+You might recognize m<sub>2</sub> as the mean squared deviation (or variance);m<sub>3</sub> is the mean cubed deviation.
 
+Negative skewness indicates that a distribution “skews left". It extends farther to the left than the right. Positive skewness indicates that a distribution skews right.
+
+Because outliers can have a disproportionate effect on g<sub>1</sub>, another way to evaluate the asymmetry of a distribution is to look at the relationship between the mean and median. Extreme values have more effect on the mean than the median, so in a distribution that skews left, the mean is less than the median.
+
+#### 6.1.1 Pearson’s Median Skewness Coefficient
+
+Pearson’s median skewness coefficient is an alternative measure of skewness that explicitly captures the relationship between the mean, &mu;, and the median, &mu;<sub>1/2</sub>. It's particularly useful because it's robust, meaning it is <b>not</b> sensitive to outliers.
 
 ## 7.0 Hypothesis Testing
 

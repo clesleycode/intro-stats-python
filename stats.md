@@ -23,6 +23,9 @@ Brought to you by [Lesley Cordero](http://www.columbia.edu/~lc2958).
 		* [1.4.3 Oversampling](#143-oversampling)
 		* [1.4.4 Summary Statistic](#144-summary-statistic)
 		* [1.4.5 Statistically Significant](#145-statistically-signifcant)
+		* [1.4.6 Central Tendency](#146-central-tendency)
+		* [1.4.7 Frequentist Statistics](#147-frequenist-statistics)
+		* [1.4.8 Bayesian Statistics](#148-bayesian-statistics)
 - [2.0 Descriptive Statistics](#20-descriptive-statistics)
 	+ [2.1 Mean](#21-mean)
 	+ [2.2 Variance](#22-variance)
@@ -34,24 +37,30 @@ Brought to you by [Lesley Cordero](http://www.columbia.edu/~lc2958).
 - [3.0 Cumulative Distribution Functions](#30-cumulative-distribution-functions)
 	+ [3.1 Percentiles](#31-percentiles)
 	+ [3.2 CDFs](#32-cdfs)
+	+ [3.3 Interquartile Range](#33-interquartile-range)
 - [4.0 Sampling Distributions](#40-sampling-distributions)
-	+ [4.1 Exponential Distribution](#41-exponential-distributions)
-	+ [4.2 Pareto Distribution](#42-pareto-distribution)
-	+ [4.3 Normal Distribution](#43-normal-distribution)
+	+ [4.1 Normal Distribution](#41-normal-distribution)
+	+ [4.2 Exponential Distribution](#42-exponential-distributions)
+	+ [4.3 Pareto Distribution](#43-pareto-distribution)
 	+ [4.4 Poisson Distribution](#44-poisson-distribution)
-	+ [5.2 Binomial Distribution](#52-binomial-distribution)
-		* [5.5.1 What is a Sampling Distribution?](#551-what-is-a-sampling-distribution)
+		* [4.4.1 Code](#441-code)
 - [5.0 Probability](#50-probability)
 	+ [5.1 Probability Rules](#51-probability-rules)
-	+ [5.5 Bayes's Theorem](#55-bayes-theorem)
+	+ [5.2 Binomial Distribution](#52-binomial-distribution)
+	+ [5.3 Bayes's Theorem](#55-bayes-theorem)
+		* [5.3.1 What is a Sampling Distribution?](#551-what-is-a-sampling-distribution)
 - [6.0 Operations on Distributions](#60-operations-on-distributions)
 	+ [6.1 Skewness](#61-skewness)
 		* [6.1.1 Pearson’s Median Skewness Coefficient](#611-pearsons-median-skewness-coefficient)
 - [7.0 Hypothesis Testing](#70-hypothesis-testing)
-	+ [9.2 Correlation](#92-correlation)
+	+ [7.1 Testing a difference in means](#71-testing-a-difference-in-means)
+	+ [7.2 Choosing a threshold](#72-choosing-a-threshold)
 - [8.0 Estimation](#80-estimation)
+	+ [8.1 Outliers](#81-outliers)
+	+ [8.2 Mean Squared Error](#82-mean-squared-error)
 - [9.0 Correlation](#90-correlation)
 	+ [9.1 Covariance](#covariance)
+	+ [9.2 Correlation](#92-correlation)
 - [10.0 Mini Courses](#100-mini-courses)
 
 ## 0.0 Setup
@@ -66,6 +75,7 @@ Download [Python](https://www.python.org/downloads/) and [Pip](https://pip.pypa.
 
 ```
 pip3 install scipy
+pip3 install numpy
 ```
 
 ## 1.0 Background
@@ -134,9 +144,16 @@ An apparent effect is statistically significant if it is unlikely to occur by ch
 
 The central tendency is a characteristic of a sample or population, or the most average value. 
 
+#### 1.4.7 Frequentist Statistics
+
+Frequentist Statistics tests whether an event occurs or not. It calculates the probability of an event in the long run of the experiment (i.e the experiment is repeated under the same conditions to obtain the outcome).
+
+#### 1.4.8 Bayesian Statistics
+
+Bayesian statistics is a mathematical procedure that applies probabilities to statistical problems. It provides people the tools to update their beliefs in the evidence of new data.
 
 
-## 2.0 Descriptive Statistics 
+## 2.0 Descriptive Statistics
 
 ### 2.1 Mean 
 
@@ -150,6 +167,14 @@ In Python, the mean would look like this:
 def Mean(t):
     return(float(sum(t)) / len(t))
 ```
+
+Alternatively, you can use built-in functions from the numpy module: 
+
+``` python
+import numpy
+np.mean([1,4,3,2,6,4,4,3,2,6])
+```
+
 ### 2.2 Variance
 
 In the same way that the mean is intended to describe the central tendency, variance is intended to describe the <b>spread</b>. 
@@ -168,6 +193,11 @@ def Var(t, mu=None):
     dev2 = [(x - mu)**2 for x in t]
     var = Mean(dev2)
     return(var)
+```
+Once again, you can use built in functions from numpy instead:
+
+```
+numpy.var([1,3,3,6,3,2,7,5,9,1])
 ```
 
 ### 2.3 Distributions
@@ -249,6 +279,15 @@ def cdf(t, x):
 	return(prob)
 ```
 
+Alternatively, you can use numpy to find the percentile. 
+
+``` python
+import numpy
+numpy.percentile([1,42,53,23,12,3,35,2], 50)
+```
+
+This code returns the 50th percentile, e.g median.
+
 ### 3.3 Interquartile Range
 
 Once you have computed a CDF, it's easy to compute other summary statistics.The median is just the 50th percentile. The 25th and 75th percentiles are often used to check whether a distribution is symmetric, and their difference, which is called the interquartile range, measures the spread.
@@ -280,7 +319,7 @@ def NormalCdf(x, mu=0, sigma=1):
 ```
 Notice we imported `er` from `scipy.special`. This CDF, when plotted, looks like:
 
-![alt text](normal distr cdf plot"Logo Title Text 1")
+![alt text](https://github.com/lesley2958/stats-programmers/blob/master/normal%20distr%20cdf%20plot.png?raw=true "Logo Title Text 1")
 
 ### 4.2 Exponential Distribution 
 
@@ -290,7 +329,7 @@ Exponential distributions come up when we look at a series of events and measure
 
 Here, &lambda; determines the shape of the distribution. The mean of an exponential distribution is 1/&lambda;, whereas the median is usually ln(2)/&lambda;. This results in a distribution that looks like:
 
-![alt text](expo cdf plot"Logo Title Text 1")
+![alt text](https://github.com/lesley2958/stats-programmers/blob/master/exp%20cdf%20plot.png?raw=true "Logo Title Text 1")
 
 
 ### 4.3 Pareto Distribution 
@@ -301,7 +340,7 @@ The Pareto Distribution is often used to describe phenomena in the natural and s
 
 Here, x<sub>m</sub> and &alpha; determine the location and shape of the distribution. Specifically x<sub>m</sub> is the minimum possible value. This ends up looking something like this: 
 
-![alt text](pareto cdf plot"Logo Title Text 1")
+![alt text](https://github.com/lesley2958/stats-programmers/blob/master/pareto%20cdf%20plot.png?raw=true "Logo Title Text 1")
 
 
 ### 4.4 Poisson Distribution
@@ -371,7 +410,7 @@ def Binom(n, k, d={}):
 ```
 
 
-### 5.5 Bayes's Theorem
+### 5.3 Bayes's Theorem
 
 Bayes’s theorem is a relationship between the conditional probabilities of two events. A conditional probability, often written P(A|B) is the probability that Event A will occur given that we know that Event B has occurred. It's represented as follows:
 
@@ -380,7 +419,7 @@ Bayes’s theorem is a relationship between the conditional probabilities of two
 Bayes theorem is what allows us to go from a sampling distribution and a prior distribution to a posterior distribution. 
 
 
-#### 5.5.1 What is a Sampling Distribution?
+#### 5.3.1 What is a Sampling Distribution?
 
 A sampling distribution is the probability of seeing a given data point, given our parameters (&theta;). This is written as p(X|&theta;). For example, we might have data on 1,000 coin flips, where 1 indicates a head.
 

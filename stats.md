@@ -122,6 +122,8 @@ Computation is a tool that is well-suited to quantitative analysis, and computer
 
 ### 1.4 Glossary
 
+Here is some common terminology that we'll encounter throughout the workshop:
+
 #### 1.4.1 Frequency 
 
 Frequency is the number of times a value appears in a dataset
@@ -368,7 +370,9 @@ Scipy is a python library that is used for Analytics, Scientific Computing, and 
 
 Using scipy, we can calculate the poisson distribution as follows: 
 
+``` python
 proabability_reached = float(1-scipy.stats.distributions.poisson.cdf(poisson random variable-1, rate_of_success)) * 100
+```
 
 ## 5.0 Probability
 
@@ -496,19 +500,45 @@ Pearson’s median skewness coefficient is an alternative measure of skewness th
 
 A statistical hypothesis is a hypothesis that is testable on the basis of observing a process that is modeled via a set of random variables. The underlying logic is similar to a proof by contradiction. To prove a mathematical statement, A, you assume temporarily that A is false. If that assumption leads to a contradiction, you conclude that A must actually be true.
 
-Similarly, to test a hypothesis like, “This effect is real,” we assume, temporarily,
-that is is not. That’s the <b>null hypothesis</b>. Based on that assumption,
-we compute the probability of the apparent effect. That’s the <b>p-value</b>. If the
-p-value is low enough, we conclude that the null hypothesis is unlikely to
+Similarly, to test a hypothesis like, “This effect is real,” we assume, temporarily, that is is not. That’s the <b>null hypothesis</b>. Based on that assumption, we compute the probability of the apparent effect. That’s the <b>p-value</b>. If the p-value is low enough, we conclude that the null hypothesis is unlikely to
 be true.
 
+### 7.1 Z-Values, P-Values & Tables
 
-### 7.1 Testing a difference in means
+These are associated with standard normal distributions. Z-values are a measure of how many standard deviation away from mean is the observed value. P-values are the probabilities, which you can retrieve from its associated z-value in a [z-table](http://www.stat.ufl.edu/~athienit/Tables/Ztable.pdf). 
 
-One of the easiest hypotheses to test is an apparent difference in mean between
-two groups.
+We've already reviewed how to retrieve the p-value, but how do we get the z-value? With the following formula:
 
-### 7.2 Choosing a threshold
+![alt text](z value "Logo Title Text 1")
+
+where x is your data point, &mu; is the mean and &sigma; is the standard deviation. 
+
+
+### 7.2 Central Limit Theorem
+
+The central limit theorem allows us to understand the behavior of estimates across repeated sampling and conclude if a result from a given sample can be declared to be “statistically significant".
+
+The central limit theorem tells us exactly what the shape of the distribution of means will be when we draw repeated samples from a given population.  Specifically, as the sample sizes get larger, the distribution of means calculated from repeated sampling will approach normality. 
+
+Let's take a look at an example: Here, we have data of 1000 students of 10th standard with their total marks. Let's take a look at the frequency distribution of marks: 
+
+![alt text](clt-hist "Logo Title Text 1")
+
+This is clearly an unnatural distribution. So what can we do? 
+
+Let's take a sample of 40 students from this data. That makes for 25 total samples we can take (1000/40 = 25). The actual mean is 48.4, but it's very unlikely that every sample of 40 will have this same mean. 
+
+If we take a large number of samples and compute the means and then make a probability histogram on these means, we'll get something similar to:
+
+![alt text](clt-samples "Logo Title Text 1")
+
+You can see that distribution resembles a normally distributed histogram. 
+
+### 7.2 Testing a difference in means
+
+One of the easiest hypotheses to test is an apparent difference in mean between two groups.
+
+### 7.3 Choosing a threshold
 
 In hypothesis testing we have to worry about two kinds of errors.
 

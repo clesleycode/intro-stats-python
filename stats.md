@@ -393,8 +393,7 @@ If I roll 100 dice, the chance of getting all sixes is (1/6)<sup>100</sup>. And 
 
 ![alt text](https://github.com/lesley2958/stats-programmers/blob/master/binomial%20pmf.png?raw=true "Logo Title Text 1")
 
-where n is the number of trials, p is the probability of success, and k is the
-number of successes. The binomial coefficient is pronounced “n choose k”, and it can be computed
+where n is the number of trials, p is the probability of success, and k is the number of successes. The binomial coefficient is pronounced “n choose k”, and it can be computed
 recursively like this:
 
 ![alt text](https://github.com/lesley2958/stats-programmers/blob/master/binomial%20coeff.png?raw=true "Logo Title Text 1")
@@ -477,7 +476,6 @@ print(st.bernoulli.pmf(0, .5))
 ```
 
 
-
 ## 6.0 Operations on Distributions
 
 ### 6.1 Skewness
@@ -509,7 +507,7 @@ These are associated with standard normal distributions. Z-values are a measure 
 
 We've already reviewed how to retrieve the p-value, but how do we get the z-value? With the following formula:
 
-![alt text](z value "Logo Title Text 1")
+![alt text](https://github.com/ByteAcademyCo/stats-programmers/blob/master/z%20value.png?raw=true "Logo Title Text 1")
 
 where x is your data point, &mu; is the mean and &sigma; is the standard deviation. 
 
@@ -522,7 +520,7 @@ The central limit theorem tells us exactly what the shape of the distribution of
 
 Let's take a look at an example: Here, we have data of 1000 students of 10th standard with their total marks. Let's take a look at the frequency distribution of marks: 
 
-![alt text](clt-hist "Logo Title Text 1")
+![alt text](https://github.com/ByteAcademyCo/stats-programmers/blob/master/clt-hist.png?raw=true "Logo Title Text 1")
 
 This is clearly an unnatural distribution. So what can we do? 
 
@@ -530,21 +528,23 @@ Let's take a sample of 40 students from this data. That makes for 25 total sampl
 
 If we take a large number of samples and compute the means and then make a probability histogram on these means, we'll get something similar to:
 
-![alt text](clt-samples "Logo Title Text 1")
+![alt text](https://github.com/ByteAcademyCo/stats-programmers/blob/master/clt-samp.png?raw=true "Logo Title Text 1")
 
 You can see that distribution resembles a normally distributed histogram. 
 
-### 7.2 Testing a difference in means
+### 7.3 Significance Level
 
-One of the easiest hypotheses to test is an apparent difference in mean between two groups.
+Significance Tests allow us to see whether there is a significant relationship between variables. It gives us an idea of whether something is likely or unlikely to happen by chance. 
 
-### 7.3 Choosing a threshold
+### 7.4 Steps
 
-In hypothesis testing we have to worry about two kinds of errors.
+The initial step to hypothesis testing is to actually set up theHypothesis, both the NULL and Alternate.  
 
-1. False Positives are when we accept a hypothesis that is actually false; that is, we consider an effect significant when it was actually due to chance.
+Next, you set the criteria for decision. To set the criteria for a decision, we state the level of significance for a test. Based on the level of significance, we make a decision to accept the Null or Alternate hypothesis.
 
-2. False Negatives are when we reject a hypothesis that is actually true; that is, we attribute an effect to chance when it was actually real.
+The third step is to compute the random chance of probability. Higher probability has higher likelihood and enough evidence to accept the Null hypothesis.
+
+Lastly, you make a decision. Here, we compare p value with predefined significance level and if it is less than significance level, we reject Null hypothesis, else we accept it.
 
 
 ## 8.0 Estimation 
@@ -630,6 +630,10 @@ def Corr(xs, ys):
     corr = Cov(xs, ys, xbar, ybar) / math.sqrt(varx * vary)
     return(corr)
 ```
+
+### 9.3 Confidence Intervals
+
+The formal meaning of a confidence interval is that 95% of the confidence intervals should, in the long run, contain the true population parameter.
 
 ## 10.0 Mini Courses
 

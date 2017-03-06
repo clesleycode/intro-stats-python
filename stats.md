@@ -498,7 +498,7 @@ Pearson’s median skewness coefficient is an alternative measure of skewness th
 
 A statistical hypothesis is a hypothesis that is testable on the basis of observing a process that is modeled via a set of random variables. The underlying logic is similar to a proof by contradiction. To prove a mathematical statement, A, you assume temporarily that A is false. If that assumption leads to a contradiction, you conclude that A must actually be true.
 
-Similarly, to test a hypothesis like, “This effect is real,” we assume, temporarily, that is is not. That’s the <b>null hypothesis</b>. Based on that assumption, we compute the probability of the apparent effect. That’s the <b>p-value</b>. If the p-value is low enough, we conclude that the null hypothesis is unlikely to
+Similarly, to test a hypothesis like, “This effect is real,” we assume, temporarily, that is is not. That’s the <b>null hypothesis</b>, which is what you typically want to disprove. Based on that assumption, we compute the probability of the apparent effect. That’s the <b>p-value</b>. If the p-value is low enough, we conclude that the null hypothesis is unlikely to
 be true.
 
 ### 7.1 Z-Values, P-Values & Tables

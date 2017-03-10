@@ -159,6 +159,8 @@ Bayesian statistics is a mathematical procedure that applies probabilities to st
 
 ## 2.0 Descriptive Statistics
 
+Descriptive Statistics are the basic operations used to gain insights on a set of data.
+
 ### 2.1 Mean 
 
 An “average” is one of many summary statistics you might choose to describe the typical value or the central tendency of a sample.

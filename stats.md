@@ -299,7 +299,6 @@ This code returns the 50th percentile, e.g median.
 Once you have computed a CDF, it's easy to compute other summary statistics.The median is just the 50th percentile. The 25th and 75th percentiles are often used to check whether a distribution is symmetric, and their difference, which is called the interquartile range, measures the spread.
 
 
-
 ## 4.0 Sampling Distributions
 
 The distributions we have used so far are called empirical distributions because they are based on empirical observations, which are necessarily finite samples. The alternative is a continuous distribution, which is characterized by a CDF that is a continuous function (as opposed to a step function).
@@ -376,6 +375,24 @@ Using scipy, we can calculate the poisson distribution as follows:
 proabability_reached = float(1-scipy.stats.distributions.poisson.cdf(poisson random variable-1, rate_of_success)) * 100
 ```
 
+### 4.5 Operations on Distributions
+
+#### 4.5.1 Skewness
+
+Skewness is a statistic that measures the asymmetry of a distribution. Given a sequence of values, x<sub>i</sub>, the sample skewness is
+
+![alt text](https://github.com/lesley2958/stats-programmers/blob/master/skewness.png?raw=true "Logo Title Text 1")
+
+You might recognize m<sub>2</sub> as the mean squared deviation (or variance);m<sub>3</sub> is the mean cubed deviation.
+
+Negative skewness indicates that a distribution “skews left". It extends farther to the left than the right. Positive skewness indicates that a distribution skews right.
+
+Because outliers can have a disproportionate effect on g<sub>1</sub>, another way to evaluate the asymmetry of a distribution is to look at the relationship between the mean and median. Extreme values have more effect on the mean than the median, so in a distribution that skews left, the mean is less than the median.
+
+#### 4.5.2 Pearson’s Median Skewness Coefficient
+
+Pearson’s median skewness coefficient is an alternative measure of skewness that explicitly captures the relationship between the mean, &mu;, and the median, &mu;<sub>1/2</sub>. It's particularly useful because it's robust, meaning it is <b>not</b> sensitive to outliers.
+
 ## 5.0 Probability
 
 Probability is a real value between 0 and 1 that is intended to be a quantitative measure corresponding to the qualitative notion that some things are more likely than others.
@@ -415,7 +432,6 @@ def Binom(n, k, d={}):
         d[n, k] = res
         return(res)
 ```
-
 
 ### 5.3 Bayes's Theorem
 
@@ -478,32 +494,15 @@ print(st.bernoulli.pmf(0, .5))
 ```
 
 
-## 6.0 Operations on Distributions
 
-### 6.1 Skewness
-
-Skewness is a statistic that measures the asymmetry of a distribution. Given a sequence of values, x<sub>i</sub>, the sample skewness is
-
-![alt text](https://github.com/lesley2958/stats-programmers/blob/master/skewness.png?raw=true "Logo Title Text 1")
-
-You might recognize m<sub>2</sub> as the mean squared deviation (or variance);m<sub>3</sub> is the mean cubed deviation.
-
-Negative skewness indicates that a distribution “skews left". It extends farther to the left than the right. Positive skewness indicates that a distribution skews right.
-
-Because outliers can have a disproportionate effect on g<sub>1</sub>, another way to evaluate the asymmetry of a distribution is to look at the relationship between the mean and median. Extreme values have more effect on the mean than the median, so in a distribution that skews left, the mean is less than the median.
-
-#### 6.1.1 Pearson’s Median Skewness Coefficient
-
-Pearson’s median skewness coefficient is an alternative measure of skewness that explicitly captures the relationship between the mean, &mu;, and the median, &mu;<sub>1/2</sub>. It's particularly useful because it's robust, meaning it is <b>not</b> sensitive to outliers.
-
-## 7.0 Hypothesis Testing
+## 6.0 Hypothesis Testing
 
 A statistical hypothesis is a hypothesis that is testable on the basis of observing a process that is modeled via a set of random variables. The underlying logic is similar to a proof by contradiction. To prove a mathematical statement, A, you assume temporarily that A is false. If that assumption leads to a contradiction, you conclude that A must actually be true.
 
 Similarly, to test a hypothesis like, “This effect is real,” we assume, temporarily, that is is not. That’s the <b>null hypothesis</b>, which is what you typically want to disprove. Based on that assumption, we compute the probability of the apparent effect. That’s the <b>p-value</b>. If the p-value is low enough, we conclude that the null hypothesis is unlikely to
 be true.
 
-### 7.1 Z-Values, P-Values & Tables
+### 6.1 Z-Values, P-Values & Tables
 
 These are associated with standard normal distributions. Z-values are a measure of how many standard deviation away from mean is the observed value. P-values are the probabilities, which you can retrieve from its associated z-value in a [z-table](http://www.stat.ufl.edu/~athienit/Tables/Ztable.pdf). 
 
@@ -514,7 +513,7 @@ We've already reviewed how to retrieve the p-value, but how do we get the z-valu
 where x is your data point, &mu; is the mean and &sigma; is the standard deviation. 
 
 
-### 7.2 Central Limit Theorem
+### 6.2 Central Limit Theorem
 
 The central limit theorem allows us to understand the behavior of estimates across repeated sampling and conclude if a result from a given sample can be declared to be “statistically significant".
 
@@ -534,13 +533,13 @@ If we take a large number of samples and compute the means and then make a proba
 
 You can see that distribution resembles a normally distributed histogram. 
 
-### 7.3 Significance Level
+### 6.3 Significance Level
 
 Significance Tests allow us to see whether there is a significant relationship between variables. It gives us an idea of whether something is likely or unlikely to happen by chance. 
 
-### 7.4 Steps
+### 6.4 Steps
 
-The initial step to hypothesis testing is to actually set up theHypothesis, both the NULL and Alternate.  
+The initial step to hypothesis testing is to actually set up the Hypothesis, both the NULL and Alternate.  
 
 Next, you set the criteria for decision. To set the criteria for a decision, we state the level of significance for a test. Based on the level of significance, we make a decision to accept the Null or Alternate hypothesis.
 
@@ -549,28 +548,27 @@ The third step is to compute the random chance of probability. Higher probabilit
 Lastly, you make a decision. Here, we compare p value with predefined significance level and if it is less than significance level, we reject Null hypothesis, else we accept it.
 
 
-## 8.0 Estimation 
+## 7.0 Estimation 
 
-Up until now we have used the symbol &mu; for both the sample mean and the mean parameter, but now we will distinguish them, using x&#772;‌ for the sample mean. Previously, we've just assumed that x&#772;‌ = &mu;, but now we will go through the actual process of estimating &mu;. This process is called estimation, and the statistic we used (the sample mean) is called an estimator.
+Up until now we have used the symbol &mu; for both the sample mean and the mean parameter, but now we will distinguish them, using x&#772 for the sample mean. Previously, we've just assumed that x&#772 = &mu;, but now we will go through the actual process of estimating &mu;. This process is called estimation, and the statistic we used (the sample mean) is called an estimator.
 
 
-### 8.1 Outliers
+### 7.1 Outliers
 
-Using the sample mean to estimate &mu; is fairly intuitive, but suppose we introduce outliers. One option is to identify and discard outliers, then compute the sample
-mean of the rest. Another option is to use the median as an estimator.
+Using the sample mean to estimate &mu; is fairly intuitive, but suppose we introduce outliers. One option is to identify and discard outliers, then compute the sample mean of the rest. Another option is to use the median as an estimator.
 
-### 8.2 Mean Squared Error
+### 7.2 Mean Squared Error
 
 If there are no outliers, the sample mean minimizes the mean squared error (MSE). If we play the game many times, and each time compute the error &#772; - &mu;, the sample mean minimizes: 
 
 ![alt text](https://github.com/lesley2958/stats-programmers/blob/master/mse.png?raw=true "Logo Title Text 1")
 
 
-## 9.0 Correlation
+## 8.0 Correlation
 
-Now, we'll look at relationships between variables. <b>Correlation</b> is a description of some kind of relationship.
+Now, we'll look at relationships between variables. <b>Correlation</b> is a description of the relationship between two variables.
 
-### 9.1 Covariance
+### 8.1 Covariance
 
 Covariance is a measure of the tendency of two variables to vary together. If we have two series, X and Y, their deviations from the mean are
 
@@ -609,7 +607,7 @@ def Cov(xs, ys, mux=None, muy=None):
     return(total / len(xs))
 ```
 
-### 9.2 Correlation
+### 8.2 Correlation
 
 One solution to this problem is to divide the deviations by &sigma;, which yields standard scores, and compute the product of standard scores.
 
@@ -633,11 +631,11 @@ def Corr(xs, ys):
     return(corr)
 ```
 
-### 9.3 Confidence Intervals
+### 8.3 Confidence Intervals
 
 The formal meaning of a confidence interval is that 95% of the confidence intervals should, in the long run, contain the true population parameter.
 
-## 10.0 Mini Courses
+## 9.0 Mini Courses
 
 Learn about courses [here](www.byteacademy.co/all-courses/data-science-mini-courses/).
 

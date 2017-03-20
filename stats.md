@@ -187,7 +187,7 @@ In the same way that the mean is intended to describe the central tendency, vari
 
 ![alt text](https://github.com/lesley2958/stats-programmers/blob/master/variance.png?raw=true "Logo Title Text 1")
 
-The x<sub>i</sub> - &mu; is called the "deviation from the mean", making the variance the mean multipled by the squared deviation. This is why the square root of the variance, &sigma;, is called the <b>standard deviation</b>.
+The x<sub>i</sub> - &mu; is called the "deviation from the mean", making the variance the squared deviation multiplied by 1 over the number of samples. This is why the square root of the variance, &sigma;, is called the <b>standard deviation</b>.
 
 Using the mean function we created above, we'll write up a function that calculates the variance: 
 
@@ -316,7 +316,7 @@ Now, using the scipy module, we can create the CDF for a Normal Distribution:
 ``` python
 from scipy.special import erf
 
-def StandardNormalCdf(x):
+def NormalCdf(x):
     return (erf(x / root2) + 1) / 2)
 
 def NormalCdf(x, mu=0, sigma=1):
@@ -559,7 +559,7 @@ Using the sample mean to estimate &mu; is fairly intuitive, but suppose we intro
 
 ### 7.2 Mean Squared Error
 
-If there are no outliers, the sample mean minimizes the mean squared error (MSE). If we play the game many times, and each time compute the error &#772; - &mu;, the sample mean minimizes: 
+If there are no outliers, the sample mean minimizes the mean squared error (MSE). If we iterate through a dataset, and each time compute the error x&#772; - &mu;, the sample mean minimizes: 
 
 ![alt text](https://github.com/lesley2958/stats-programmers/blob/master/mse.png?raw=true "Logo Title Text 1")
 

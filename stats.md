@@ -6,7 +6,7 @@ Brought to you by [Lesley Cordero](http://www.columbia.edu/~lc2958).
 ## Table of Contents
 
 - [0.0 Setup](#00-setup)
-	+ [0.1 Python and Pip](#01-python-and-r-pip)
+	+ [0.1 Python and Pip](#01-python-and-pip)
 	+ [0.2 Libraries](#02-libraries)
 - [1.0 Background](#10-background)
 	+ [1.1 Probability](#11-probability)
@@ -78,6 +78,7 @@ Let's install the modules we'll need for this tutorial. Open up your terminal an
 ```
 pip3 install scipy
 pip3 install numpy
+pip3 install math
 ```
 
 ## 1.0 Background
@@ -90,18 +91,15 @@ Probability is the study of random events - the study of how likely it is that s
 
 ### 1.2 Statistics
 
-Statistics is the discipline of using data samples to support claims about populations. Most statistical analysis is based on probability, which is why these pieces are usually presented together.
+Statistics is the discipline that uses data to support claims about populations. Most statistical analysis is based on probability, which is why these pieces are usually presented together.
 
 #### 1.2.1 Data Collection 
 
-Data collection is the process of gathering and measuring information on targeted variables in an established systematic fashion, which allows you to answer relevant questions and evaluate outcomes.
-
-Many times, our data will come from simulation. In the classic example question, "Is a coin toss fair?", we'll do exactly that.
-
+Data collection is the process of gathering data to answer relevant questions and evaluate outcomes.
 
 #### 1.2.2 Descriptive Statistics 
 
-Descriptive statistics refers to the generation of statistics that summarize your data concisely and evaluate different ways to visualize data.
+Descriptive statistics refers to statistics that summarize your data concisely and evaluate different ways to visualize data.
 
 #### 1.2.3 Exploratory Data Analysis
 
@@ -109,52 +107,31 @@ During the process of exploratory data analysis, we look for patterns, differenc
 
 #### 1.2.4 Hypothesis Testing 
 
-Where we see apparent effects, like a difference between two groups, we will evaluate whether the effect is real, or whether it might have happened by chance.
+When we evaluate a possible cause-and-effect relationship, like a difference between two groups, we will evaluate whether the effect is real or whether it might have happened by chance.
 
 #### 1.2.5 Estimation 
 
-We will use data from a sample to estimate characteristics of the general population.
+Estimation is what allows us to use data from a sample to estimate characteristics of the general population.
 
-### 1.3 Computation
-
-Computation is a tool that is well-suited to quantitative analysis, and computers are commonly used to process statistics. Also, computational experiments are useful for exploring concepts in probability and statistics.
-
-
-### 1.4 Glossary
+### 1.3 Glossary
 
 Here is some common terminology that we'll encounter throughout the workshop:
 
-#### 1.4.1 Frequency 
+#### 1.3.1 Frequency 
 
 Frequency is the number of times a value appears in a dataset
 
-#### 1.4.2 Probability
+#### 1.3.2 Probability
 
 Probability is the frequency expressed as a fraction of the sample size, n.
 
-#### 1.4.3 Oversampling
+#### 1.3.3 Oversampling
 
-Oversampling is the technique of increasing the representation of a subpopulation in order to avoid errors due to small sample sizes.
+Oversampling is the technique of increasing the representation of a subpopulation to avoid errors due to small sample sizes.
 
-#### 1.4.4 Summary Statistics
-
-A summary statistic is the result of a computation that reduces a dataset to a single number (or at least a smaller set of numbers) that captures some characteristic of the data.
-
-#### 1.4.5 Statistically Significant
+#### 1.3.4 Statistically Significant
 
 An apparent effect is statistically significant if it is unlikely to occur by chance.
-
-#### 1.4.6 Central Tendency
-
-The central tendency is a characteristic of a sample or population, or the most average value. 
-
-#### 1.4.7 Frequentist Statistics
-
-Frequentist Statistics tests whether an event occurs or not. It calculates the probability of an event in the long run of the experiment (i.e the experiment is repeated under the same conditions to obtain the outcome).
-
-#### 1.4.8 Bayesian Statistics
-
-Bayesian statistics is a mathematical procedure that applies probabilities to statistical problems. It provides people the tools to update their beliefs in the evidence of new data.
 
 
 ## 2.0 Descriptive Statistics
@@ -177,7 +154,7 @@ def Mean(t):
 Alternatively, you can use built-in functions from the numpy module: 
 
 ``` python
-import numpy
+import numpy as np
 np.mean([1,4,3,2,6,4,4,3,2,6])
 ```
 

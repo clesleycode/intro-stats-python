@@ -16,16 +16,11 @@ Brought to you by [Lesley Cordero](http://www.columbia.edu/~lc2958).
 		* [1.2.3 Exploratory Data Analysis](#123-exploratory-data-analysis)
 		* [1.2.4 Hypothesis Testing](#124-hypothesis-testing)
 		* [1.2.5 Estimation](#125-estimation)
-	+ [1.3 Computation](#13-computation)
-	+ [1.4 Glossary](#14-glossary)
-		* [1.4.1 Frequency](#141-frequency)
-		* [1.4.2 Probability](#142-probability)
-		* [1.4.3 Oversampling](#143-oversampling)
-		* [1.4.4 Summary Statistic](#144-summary-statistic)
-		* [1.4.5 Statistically Significant](#145-statistically-signifcant)
-		* [1.4.6 Central Tendency](#146-central-tendency)
-		* [1.4.7 Frequentist Statistics](#147-frequenist-statistics)
-		* [1.4.8 Bayesian Statistics](#148-bayesian-statistics)
+	+ [1.3 Glossary](#13-glossary)
+		* [1.3.1 Frequency](#131-frequency)
+		* [1.3.2 Probability](#132-probability)
+		* [1.3.3 Oversampling](#133-oversampling)
+		* [1.3.4 Statistically Significant](#145-statistically-significant)
 - [2.0 Descriptive Statistics](#20-descriptive-statistics)
 	+ [2.1 Mean](#21-mean)
 	+ [2.2 Variance](#22-variance)
@@ -232,7 +227,7 @@ Outliers are values that are far from the central tendency. Outliers might be ca
 
 ## 3.0 Cumulative Distribution Functions
 
-### 3.1 Percentiles
+### 3.1 Percentile Rank & Percentiles
 
 The percentile rank is the fraction of people who scored lower than you (or the same). So if you are “in the 90th percentile,” you did as well as or better than 90% of the people who took the exam.
 
@@ -244,7 +239,26 @@ def percentileRank(scores, your_score):
 			count += 1
 	percentile_rank = 100.0 * count / len(scores)
 	return(percentile_rank)
+
+percentileRank([1,42,53,23,12,3,35,2], 17.5)
 ```
+
+Alternatively, we can use the `scipy` module to retrieve the percentile rank! 
+``` python
+from scipy import stats
+stats.percentileofscore([1,42,53,23,12,3,35,2], 17.5)
+```
+
+Both of these output the 50th percentile since 17.5 is the median!
+
+Now, what if we want the reverse? So instead of what percentile a value is, we want to know what value is at a given percentile. In other words, now we want the inputs and outputs to be switched. Luckily, this is available with `numpy`:
+
+``` python
+import numpy as np
+np.percentile([1,42,53,23,12,3,35,2], 50)
+```
+
+This code returns the 50th percentile, e.g median, `17.5`.
 
 ### 3.2 CDFs
 
@@ -262,18 +276,9 @@ def cdf(t, x):
 	return(prob)
 ```
 
-Alternatively, you can use numpy to find the percentile. 
-
-``` python
-import numpy
-numpy.percentile([1,42,53,23,12,3,35,2], 50)
-```
-
-This code returns the 50th percentile, e.g median.
-
 ### 3.3 Interquartile Range
 
-Once you have computed a CDF, it's easy to compute other summary statistics.The median is just the 50th percentile. The 25th and 75th percentiles are often used to check whether a distribution is symmetric, and their difference, which is called the interquartile range, measures the spread.
+Once you have computed a CDF, it's easy to compute other summary statistics. The median is just the 50th percentile. The 25th and 75th percentiles are often used to check whether a distribution is symmetric, and their difference, which is called the interquartile range, measures the spread.
 
 
 ## 4.0 Sampling Distributions
@@ -282,7 +287,7 @@ The distributions we have used so far are called empirical distributions because
 
 ### 4.1 Normal Distribution
 
-The normal distribution, also called Gaussian, is the most commonly used because it describes so many phenomena (at least approximately). The normal distribution has many properties that make it amenable for analysis, but the CDF is not one of them.
+The normal distribution, also called Gaussian, is the most commonly used because it describes so many scenarios. Despite its wide range of applicability, CDFs with the normal distribution are non-trivial compared to other distributions.
 
 Unlike the other distributions we will look at, there is no closed-form expression for the normal CDF. Instead, we write it in terms of the error function, erf(x). 
 
@@ -360,15 +365,41 @@ Skewness is a statistic that measures the asymmetry of a distribution. Given a s
 
 ![alt text](https://github.com/lesley2958/stats-programmers/blob/master/skewness.png?raw=true "Logo Title Text 1")
 
-You might recognize m<sub>2</sub> as the mean squared deviation (or variance);m<sub>3</sub> is the mean cubed deviation.
+You might recognize m<sub>2</sub> as the mean squared deviation (or variance). m<sub>3</sub> is the mean cubed deviation.
 
 Negative skewness indicates that a distribution “skews left". It extends farther to the left than the right. Positive skewness indicates that a distribution skews right.
 
+To find this value, you can use `scipy`:
+
+``` python
+import scipy
+scipy.stats.skew([1,3,3,6,3,2,7,5,9,1])
+```
+
+Which gets us a measure of `0.592927061281571`, meaning it's skewed to the right.
+
 Because outliers can have a disproportionate effect on g<sub>1</sub>, another way to evaluate the asymmetry of a distribution is to look at the relationship between the mean and median. Extreme values have more effect on the mean than the median, so in a distribution that skews left, the mean is less than the median.
+
+Take the example from above:
+
+```
+[1,3,3,6,3,2,7,5,9,1]
+```
+
+The median of this list is `3`, whereas the mean is `4`. With these two values, you can confirm that it skews to the right. 
 
 #### 4.5.2 Pearson’s Median Skewness Coefficient
 
 Pearson’s median skewness coefficient is an alternative measure of skewness that explicitly captures the relationship between the mean, &mu;, and the median, &mu;<sub>1/2</sub>. It's particularly useful because it's robust, meaning it is <b>not</b> sensitive to outliers.
+
+The equation is as follows: 
+```
+P = (3 * (X - Med))/s
+```
+where X is the mean, Med is the median, and s is the standard deviation. 
+
+For `[1,3,3,6,3,2,7,5,9,1]`, the mean is 21, the median is 17.5, and the standard deviation is `18.808`. If we plug these values in, we can a pearson median coefficient of `0.5582781958205234`, meaning it's right skewed.
+
 
 ## 5.0 Probability
 

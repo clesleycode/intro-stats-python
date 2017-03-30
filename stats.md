@@ -39,24 +39,31 @@ Brought to you by [Lesley Cordero](http://www.columbia.edu/~lc2958).
 	+ [4.3 Pareto Distribution](#43-pareto-distribution)
 	+ [4.4 Poisson Distribution](#44-poisson-distribution)
 		* [4.4.1 Code](#441-code)
+ 	+ [4.5 Operations on Distributions](#45-operations-on-distributions)
+		* [4.5.1 Skewness](#451-skewness)
+		* [4.5.2 Pearson’s Median Skewness Coefficient](#452-pearsons-median-skewness-coefficient)
 - [5.0 Probability](#50-probability)
 	+ [5.1 Probability Rules](#51-probability-rules)
 	+ [5.2 Binomial Distribution](#52-binomial-distribution)
 	+ [5.3 Bayes's Theorem](#55-bayes-theorem)
 		* [5.3.1 What is a Sampling Distribution?](#551-what-is-a-sampling-distribution)
-- [6.0 Operations on Distributions](#60-operations-on-distributions)
-	+ [6.1 Skewness](#61-skewness)
-		* [6.1.1 Pearson’s Median Skewness Coefficient](#611-pearsons-median-skewness-coefficient)
+- [6.0 Estimation](#60-estimation)
+	+ [6.1 Outliers](#61-outliers)
+	+ [6.2 Mean Squared Error](#62-mean-squared-error)
 - [7.0 Hypothesis Testing](#70-hypothesis-testing)
 	+ [7.1 Testing a difference in means](#71-testing-a-difference-in-means)
 	+ [7.2 Choosing a threshold](#72-choosing-a-threshold)
-- [8.0 Estimation](#80-estimation)
-	+ [8.1 Outliers](#81-outliers)
-	+ [8.2 Mean Squared Error](#82-mean-squared-error)
-- [9.0 Correlation](#90-correlation)
-	+ [9.1 Covariance](#covariance)
-	+ [9.2 Correlation](#92-correlation)
-- [10.0 Mini Courses](#100-mini-courses)
+	+ [7.3 Significance Level](#73-significance-level)
+	+ [7.4 Steps](#74-steps)
+	+ [7.5 Example](#75-example)
+		* [7.5.1 Hypothesis](#651-hypothesis)
+		* [7.5.2 Significance Level](#752-significance-level)
+		* [7.5.3 Computation](#753-computation)
+		* [7.5.4 Hypotheses](#754-hypotheses)
+- [8.0 Correlation](#80-correlation)
+	+ [8.1 Covariance](#81-covariance)
+	+ [8.2 Correlation](#82-correlation)
+- [9.0 Mini Courses](#90-mini-courses)
 
 ## 0.0 Setup
 
@@ -501,18 +508,33 @@ print(st.bernoulli.pmf(1, .5))
 print(st.bernoulli.pmf(0, .5))
 ```
 
+## 6.0 Estimation 
+
+Up until now we have used the symbol &mu; for both the sample mean and the mean parameter, but now we will distinguish them, using x&#772; for the sample mean. Previously, we've just assumed that x&#772; = &mu;, but now we will go through the actual process of estimating &mu;. This process is called estimation, and the statistic we used (the sample mean) is called an estimator.
 
 
-## 6.0 Hypothesis Testing
+### 6.1 Outliers
+
+Using the sample mean to estimate &mu; is fairly intuitive, but suppose we introduce outliers. One option is to identify and discard outliers, then compute the sample mean of the rest. Another option is to use the median as an estimator.
+
+### 6.2 Mean Squared Error
+
+If there are no outliers, the sample mean minimizes the mean squared error (MSE). If we iterate through a dataset, and each time compute the error x&#772; - &mu;, the sample mean minimizes: 
+
+![alt text](https://github.com/lesley2958/stats-programmers/blob/master/mse.png?raw=true "Logo Title Text 1")
+
+
+
+## 7.0 Hypothesis Testing
 
 A statistical hypothesis is a hypothesis that is testable on the basis of observing a process that is modeled via a set of random variables. The underlying logic is similar to a proof by contradiction. To prove a mathematical statement, A, you assume temporarily that A is false. If that assumption leads to a contradiction, you conclude that A must actually be true.
 
 Similarly, to test a hypothesis like, “This effect is real,” we assume, temporarily, that is is not. That’s the <b>null hypothesis</b>, which is what you typically want to disprove. Based on that assumption, we compute the probability of the apparent effect. That’s the <b>p-value</b>. If the p-value is low enough, we conclude that the null hypothesis is unlikely to
 be true.
 
-### 6.1 Z-Values, P-Values & Tables
+### 7.1 Z-Values, P-Values & Tables
 
-These are associated with standard normal distributions. Z-values are a measure of how many standard deviation away from mean is the observed value. P-values are the probabilities, which you can retrieve from its associated z-value in a [z-table](http://www.stat.ufl.edu/~athienit/Tables/Ztable.pdf). 
+These are associated with standard normal distributions. Z-values are a measure of how many standard deviations away from mean is the observed value. P-values are the probabilities, which you can retrieve from its associated z-value in a [z-table](http://www.stat.ufl.edu/~athienit/Tables/Ztable.pdf). 
 
 We've already reviewed how to retrieve the p-value, but how do we get the z-value? With the following formula:
 
@@ -521,7 +543,7 @@ We've already reviewed how to retrieve the p-value, but how do we get the z-valu
 where x is your data point, &mu; is the mean and &sigma; is the standard deviation. 
 
 
-### 6.2 Central Limit Theorem
+### 7.2 Central Limit Theorem
 
 The central limit theorem allows us to understand the behavior of estimates across repeated sampling and conclude if a result from a given sample can be declared to be “statistically significant".
 
@@ -541,11 +563,11 @@ If we take a large number of samples and compute the means and then make a proba
 
 You can see that distribution resembles a normally distributed histogram. 
 
-### 6.3 Significance Level
+### 7.3 Significance Level
 
 Significance Tests allow us to see whether there is a significant relationship between variables. It gives us an idea of whether something is likely or unlikely to happen by chance. 
 
-### 6.4 Steps
+### 7.4 Steps
 
 The initial step to hypothesis testing is to actually set up the Hypothesis, both the NULL and Alternate.  
 
@@ -556,20 +578,37 @@ The third step is to compute the random chance of probability. Higher probabilit
 Lastly, you make a decision. Here, we compare p value with predefined significance level and if it is less than significance level, we reject Null hypothesis, else we accept it.
 
 
-## 7.0 Estimation 
+### 7.5 Example
 
-Up until now we have used the symbol &mu; for both the sample mean and the mean parameter, but now we will distinguish them, using x&#772 for the sample mean. Previously, we've just assumed that x&#772 = &mu;, but now we will go through the actual process of estimating &mu;. This process is called estimation, and the statistic we used (the sample mean) is called an estimator.
+Blood glucose levels for obese patients have a mean of 100 with a standard deviation of 15. A researcher thinks that a diet high in raw cornstarch will have a positive effect on blood glucose levels. A sample of 36 patients who have tried the raw cornstarch diet have a mean glucose level of 108. Test the hypothesis that the raw cornstarch had an effect or not.
+
+#### 7.5.1 Hypothesis
+
+First, we have to state the hypotheses. We set our NULL Hypothesis to be the glucose variable = 100 since that's the known fact. The alternative is that the glucose variable is greater than 100. 
 
 
-### 7.1 Outliers
+#### 7.5.2 Significance Level
 
-Using the sample mean to estimate &mu; is fairly intuitive, but suppose we introduce outliers. One option is to identify and discard outliers, then compute the sample mean of the rest. Another option is to use the median as an estimator.
+Unless specified, we typically set the significance level to 5%, or `0.05`. Now, if we figure out the corresponding z-value from the [z-table](http://www.stat.ufl.edu/~athienit/Tables/Ztable.pdf), we'll see that it corresponds to `1.645`. This is now the z-score cut off for significance level, meaning the area to the right (or z-scores higher than 1.645) is the rejection hypothesis space. 
 
-### 7.2 Mean Squared Error
+#### 7.5.3 Computation
 
-If there are no outliers, the sample mean minimizes the mean squared error (MSE). If we iterate through a dataset, and each time compute the error x&#772; - &mu;, the sample mean minimizes: 
+Now, we can compute the random chance probability using z scores and the z-table. Recall the formula from earlier, z = (x - &mu;)/ &sigma;. Now, before we go into computing, let's overview the difference between standard deviation of the mean and standard deviation of the distribution. 
 
-![alt text](https://github.com/lesley2958/stats-programmers/blob/master/mse.png?raw=true "Logo Title Text 1")
+When we want to gain a sense the precision of the mean, we calculate what is called the <i>sample distribution of the mean</i>. Assuming statistical independence, the standard deviation of the mean is related to the standard deviation of the distribution with the formula &sigma;<sub>mean</mean> = &sigma / &radic;N. 
+
+With that knowledge in mind, we've been given the standard deviation of the distribution, but we need the standard deviation of the mean instead. So before we begin calculating the z value, we plug in the values for the formula above. Then we get &sigma;<sub>mean</mean> = 15 / &radic;36, or `2.5`.
+
+Now we have all the needed information to compute the z value:
+
+```
+z = (108-100) / 2.5 = 3.2
+```
+
+
+#### 7.5.4 Hypotheses 
+
+Awesome! Now we compare this value to the z-value from before, 1.645. 3.2 is clearly greater than 1.645, which means it's in the rejection hypothesis space. That tells us that we can we reject the Null hypothesis. Therefore, there <i>is</i> an effect from the raw starch.
 
 
 ## 8.0 Correlation

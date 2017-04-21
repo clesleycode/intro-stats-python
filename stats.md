@@ -597,7 +597,7 @@ Now, we can compute the random chance probability using z scores and the z-table
 
 When we want to gain a sense the precision of the mean, we calculate what is called the <i>sample distribution of the mean</i>. Assuming statistical independence, the standard deviation of the mean is related to the standard deviation of the distribution with the formula &sigma;<sub>mean</mean> = &sigma / &radic;N. 
 
-With that knowledge in mind, we've been given the standard deviation of the distribution, but we need the standard deviation of the mean instead. So before we begin calculating the z value, we plug in the values for the formula above. Then we get &sigma;<sub>mean</mean> = 15 / &radic;36, or `2.5`.
+With that knowledge in mind, we've been given the standard deviation of the distribution, but we need the standard deviation of the mean instead. So before we begin calculating the z value, we plug in the values for the formula above. Then we get &sigma;<sub>mean</sub> = 15 / &radic;36, or `2.5`.
 
 Now we have all the needed information to compute the z value:
 
@@ -608,7 +608,7 @@ z = (108-100) / 2.5 = 3.2
 
 #### 7.5.4 Hypotheses 
 
-Awesome! Now we compare this value to the z-value from before, 1.645. 3.2 is clearly greater than 1.645, which means it's in the rejection hypothesis space. That tells us that we can we reject the Null hypothesis. Therefore, there <i>is</i> an effect from the raw starch.
+Awesome! Now we can get the p-value from the z-value above. We see that it corresponds to `.9993`, but we have to remember to subtract this number from 1, making our p-value `0.0007`. Recall that a p-value below 0.05 is grounds for rejecting the null hypothesis. There, we do just that and conclude that there <i>is</i> an effect from the raw starch.
 
 
 ## 8.0 Correlation

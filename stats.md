@@ -439,6 +439,24 @@ The **z-score** measures the number of standard deviations the observation is ab
 
 $$ z = \frac{\overline X - \mu}{\sigma / \sqrt{n}} $$
 
+#### 4.5.4 Student T Distribution
+
+Since $\sigma$ is often unknown, we use the square root of the estimate for the variance $\sigma^2$ to get$\hat \sigma$. This makes the distribution of the z score a Student T distribution instead of a normal one.
+
+$$ z = \frac{\overline X - \mu}{\hat\sigma / \sqrt{n}} $$
+
+The pdf for this distribution is as follows: 
+
+$$ p(x) = \frac{\Gamma(\frac{\nu+1}{2})} {\sqrt{\nu\pi}\,\Gamma(\frac{\nu}{2})} \left(1+\frac{x^2}{\nu} \right)^{\!-\frac{\nu+1}{2}} \,$$
+
+where the mean is $\mathbb{E}[X] = 0$ and the variance is $\mbox{Var}[X] = \frac{\nu}{\nu-2}$. It's important to note, however, that as $\nu \to \infty$ (or $n \to \infty$), the distribution approaches the standard normal distribution
+
+$$ \overline X \longrightarrow N\left(\mu, \frac{\sigma^2}{n} \right)\, $$
+
+This results in a standard error of:
+
+$$ s = \frac{\sigma}{\sqrt{n}}\, $$
+
 
 ## 5.0 Probability
 

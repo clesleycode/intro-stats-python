@@ -341,7 +341,7 @@ Here, x<sub>m</sub> and &alpha; determine the location and shape of the distribu
 
 The Poisson distribution can be applied to systems with a large number of possible events, each of which is rare.
 
-A discrete random variable X  is said to have a Poisson distribution with parameter &lambda; > 0, if, for k = 0, 1, 2,..., the probability mass function of X  is given by:
+A discrete random variable `X` is said to have a Poisson distribution with parameter &lambda; > 0, if, for k = 0, 1, 2,..., the probability mass function of X  is given by:
 
 ![alt text](https://github.com/lesley2958/stats-programmers/blob/master/poisson%20pmf%20.png?raw=true "Logo Title Text 1")
 
@@ -363,6 +363,21 @@ Using scipy, we can calculate the poisson distribution as follows:
 ``` python
 proabability_reached = float(1-scipy.stats.distributions.poisson.cdf(poisson random variable-1, rate_of_success)) * 100
 ```
+
+NumPy can also be used to generate a random Poisson distribution. For example,
+
+```python
+import numpy as np
+# This generates a poisson distribution of size 100 with lambda value 1
+np.random.poisson(1,100)
+```
+
+#### 4.4.2 Challenge
+
+Create a function `def poisson_dist()` that meets the following requirements:
+
+1. Generate a random poisson distribution of size 1000 and lambda 10 using above method.
+2. return the distribution
 
 ### 4.5 Operations on Distributions
 

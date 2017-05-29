@@ -183,7 +183,7 @@ def Var(t, mu=None):
 Once again, you can use built in functions from numpy instead:
 
 ```
-numpy.var([1,3,3,6,3,2,7,5,9,1])
+np.var([1,3,3,6,3,2,7,5,9,1])
 ```
 
 ### 2.3 Distributions

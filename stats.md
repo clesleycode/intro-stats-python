@@ -179,6 +179,7 @@ def Var(t, mu=None):
     var = Mean(dev2)
     return(var)
 ```
+
 Once again, you can use built in functions from numpy instead:
 
 ```
@@ -251,6 +252,7 @@ percentileRank([1,42,53,23,12,3,35,2], 17.5)
 ```
 
 Alternatively, we can use the `scipy` module to retrieve the percentile rank! 
+
 ``` python
 from scipy import stats
 stats.percentileofscore([1,42,53,23,12,3,35,2], 17.5)
@@ -262,7 +264,7 @@ Now, what if we want the reverse? So instead of what percentile a value is, we w
 
 ``` python
 import numpy as np
-np.percentile([1,42,53,23,12,3,35,2], 50)
+print(np.percentile([1,42,53,23,12,3,35,2], 50))
 ```
 
 This code returns the 50th percentile, e.g median, `17.5`.
@@ -311,6 +313,7 @@ def NormalCdf(x):
 def NormalCdf(x, mu=0, sigma=1):
     return(StandardNormalCdf(float(x - mu) / sigma))
 ```
+
 Notice we imported `er` from `scipy.special`. This CDF, when plotted, looks like:
 
 ![alt text](https://github.com/lesley2958/stats-programmers/blob/master/normal%20distr%20cdf%20plot.png?raw=true "Logo Title Text 1")
@@ -415,9 +418,11 @@ The median of this list is `3`, whereas the mean is `4`. With these two values, 
 Pearson’s median skewness coefficient is an alternative measure of skewness that explicitly captures the relationship between the mean, &mu;, and the median, &mu;<sub>1/2</sub>. It's particularly useful because it's robust, meaning it is <b>not</b> sensitive to outliers.
 
 The equation is as follows: 
+
 ```
 P = (3 * (X - Med))/s
 ```
+
 where X is the mean, Med is the median, and s is the standard deviation. 
 
 For `[1,3,3,6,3,2,7,5,9,1]`, the mean is 21, the median is 17.5, and the standard deviation is `18.808`. If we plug these values in, we can a pearson median coefficient of `0.5582781958205234`, meaning it's right skewed.
@@ -471,7 +476,6 @@ Bayes’s theorem is a relationship between the conditional probabilities of two
 
 Bayes theorem is what allows us to go from a sampling distribution and a prior distribution to a posterior distribution. 
 
-
 #### 5.3.1 What is a Sampling Distribution?
 
 A sampling distribution is the probability of seeing a given data point, given our parameters (&theta;). This is written as p(X|&theta;). For example, we might have data on 1,000 coin flips, where 1 indicates a head.
@@ -515,6 +519,7 @@ We can now use this function to get the probability of a data point give our par
 print(bern_pmf(1, .5))
 print(bern_pmf(0, .5)) 
 ```
+
 More simply, we can also use the built-in methods from scipy:
 
 ``` python
@@ -527,7 +532,6 @@ print(st.bernoulli.pmf(0, .5))
 
 Up until now we have used the symbol &mu; for both the sample mean and the mean parameter, but now we will distinguish them, using x&#772; for the sample mean. Previously, we've just assumed that x&#772; = &mu;, but now we will go through the actual process of estimating &mu;. This process is called estimation, and the statistic we used (the sample mean) is called an estimator.
 
-
 ### 6.1 Outliers
 
 Using the sample mean to estimate &mu; is fairly intuitive, but suppose we introduce outliers. One option is to identify and discard outliers, then compute the sample mean of the rest. Another option is to use the median as an estimator.
@@ -537,7 +541,6 @@ Using the sample mean to estimate &mu; is fairly intuitive, but suppose we intro
 If there are no outliers, the sample mean minimizes the mean squared error (MSE). If we iterate through a dataset, and each time compute the error x&#772; - &mu;, the sample mean minimizes: 
 
 ![alt text](https://github.com/lesley2958/stats-programmers/blob/master/mse.png?raw=true "Logo Title Text 1")
-
 
 
 ## 7.0 Hypothesis Testing
@@ -556,7 +559,6 @@ We've already reviewed how to retrieve the p-value, but how do we get the z-valu
 ![alt text](https://github.com/ByteAcademyCo/stats-programmers/blob/master/z%20value.png?raw=true "Logo Title Text 1")
 
 where x is your data point, &mu; is the mean and &sigma; is the standard deviation. 
-
 
 ### 7.2 Central Limit Theorem
 
@@ -592,7 +594,6 @@ The third step is to compute the random chance of probability. Higher probabilit
 
 Lastly, you make a decision. Here, we compare p value with predefined significance level and if it is less than significance level, we reject Null hypothesis, else we accept it.
 
-
 ### 7.5 Example
 
 Blood glucose levels for obese patients have a mean of 100 with a standard deviation of 15. A researcher thinks that a diet high in raw cornstarch will have a positive effect on blood glucose levels. A sample of 36 patients who have tried the raw cornstarch diet have a mean glucose level of 108. Test the hypothesis that the raw cornstarch had an effect or not.
@@ -600,7 +601,6 @@ Blood glucose levels for obese patients have a mean of 100 with a standard devia
 #### 7.5.1 Hypothesis
 
 First, we have to state the hypotheses. We set our NULL Hypothesis to be the glucose variable = 100 since that's the known fact. The alternative is that the glucose variable is greater than 100. 
-
 
 #### 7.5.2 Significance Level
 
@@ -610,7 +610,7 @@ Unless specified, we typically set the significance level to 5%, or `0.05`. Now,
 
 Now, we can compute the random chance probability using z scores and the z-table. Recall the formula from earlier, z = (x - &mu;)/ &sigma;. Now, before we go into computing, let's overview the difference between standard deviation of the mean and standard deviation of the distribution. 
 
-When we want to gain a sense the precision of the mean, we calculate what is called the <i>sample distribution of the mean</i>. Assuming statistical independence, the standard deviation of the mean is related to the standard deviation of the distribution with the formula &sigma;<sub>mean</mean> = &sigma / &radic;N. 
+When we want to gain a sense the precision of the mean, we calculate what is called the <i>sample distribution of the mean</i>. Assuming statistical independence, the standard deviation of the mean is related to the standard deviation of the distribution with the formula &sigma;<sub>mean</sub> = &sigma / &radic;N. 
 
 With that knowledge in mind, we've been given the standard deviation of the distribution, but we need the standard deviation of the mean instead. So before we begin calculating the z value, we plug in the values for the formula above. Then we get &sigma;<sub>mean</sub> = 15 / &radic;36, or `2.5`.
 
@@ -679,7 +679,7 @@ Pearson’s correlation is always between -1 and +1. The magnitude indicates the
 
 It's important to note that Pearson's correlation only measures <b>linear</b> relationships. 
 
-Using the mean, varainces, and covariance methods above, we can write a function that calculates the correlation. 
+Using the mean, variances, and covariance methods above, we can write a function that calculates the correlation. 
 
 ``` python 
 import math

@@ -290,7 +290,7 @@ def cdf(t, x):
 Once you have computed a CDF, it's easy to compute other summary statistics. The median is just the 50th percentile. The 25th and 75th percentiles are often used to check whether a distribution is symmetric, and their difference, which is called the interquartile range, measures the spread.
 
 
-## 4.0 Sampling Distributions
+## 4.0 Distributions
 
 The distributions we have used so far are called empirical distributions because they are based on empirical observations, which are necessarily finite samples. The alternative is a continuous distribution, which is characterized by a CDF that is a continuous function (as opposed to a step function).
 
@@ -426,6 +426,36 @@ P = (3 * (X - Med))/s
 where X is the mean, Med is the median, and s is the standard deviation. 
 
 For `[1,3,3,6,3,2,7,5,9,1]`, the mean is 21, the median is 17.5, and the standard deviation is `18.808`. If we plug these values in, we can a pearson median coefficient of `0.5582781958205234`, meaning it's right skewed.
+
+#### 4.5.3 Standard Error of Mean
+
+In sampling distributions, an estimate is not always equal to its expected value. To determine what the uncertainty of this is, we determine the standard deviation of the distribution of the estimator.
+
+Given the mean estimator $\overline X$ for the sample $X_1, \ldots, X_n$., the Central Limit Theorem tells us that as $n$ increases, the estimate of $\overline X$ starts to resemble the normal distribution:
+
+$$ \overline X \sim N\left(\mu, \frac{\sigma^2}{n} \right) $$
+
+The **z-score** measures the number of standard deviations the observation is above the mean.  For $\overline X$, the z-score is distributed as a standard normal with a mean of zero and standard deviation of one.
+
+$$ z = \frac{\overline X - \mu}{\sigma / \sqrt{n}} $$
+
+#### 4.5.4 Student T Distribution
+
+Since $\sigma$ is often unknown, we use the square root of the estimate for the variance $\sigma^2$ to get$\hat \sigma$. This makes the distribution of the z score a Student T distribution instead of a normal one.
+
+$$ z = \frac{\overline X - \mu}{\hat\sigma / \sqrt{n}} $$
+
+The pdf for this distribution is as follows: 
+
+$$ p(x) = \frac{\Gamma(\frac{\nu+1}{2})} {\sqrt{\nu\pi}\,\Gamma(\frac{\nu}{2})} \left(1+\frac{x^2}{\nu} \right)^{\!-\frac{\nu+1}{2}} \,$$
+
+where the mean is $\mathbb{E}[X] = 0$ and the variance is $\mbox{Var}[X] = \frac{\nu}{\nu-2}$. It's important to note, however, that as $\nu \to \infty$ (or $n \to \infty$), the distribution approaches the standard normal distribution
+
+$$ \overline X \longrightarrow N\left(\mu, \frac{\sigma^2}{n} \right)\, $$
+
+This results in a standard error of:
+
+$$ s = \frac{\sigma}{\sqrt{n}}\, $$
 
 
 ## 5.0 Probability

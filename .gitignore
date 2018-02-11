@@ -1,2 +1,4 @@
 *.html
 .httr-oauth
+__pycache__/
+.ipynb_checkpoints/
